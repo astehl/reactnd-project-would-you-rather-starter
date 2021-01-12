@@ -1,8 +1,25 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import Option from "./Option";
+import {handleAnswerQuestion} from "../actions/questions";
+import {alreadyAnswered} from "../utils/utils";
 
 class OptionsView extends Component {
+
+    handleOptionClick = (opt) => {
+        const {question, authedUser} = this.props;
+        if (alreadyAnswered(question, authedUser)) {
+            // TODO implement toggle Answer
+            return;
+        }
+        const option = opt === 'one' ? 'optionOne' : 'optionTwo';
+        this.props.dispatch(handleAnswerQuestion({
+            id: question.id,
+            option,
+            authedUser
+        }));
+    }
+
     render() {
         const {question, authedUser} = this.props;
         const votesOptionOne = question.optionOne.votes.length;
@@ -17,12 +34,14 @@ class OptionsView extends Component {
                     votesOption={votesOptionOne}
                     votesAll={votesOptionOne+votesOptionTwo}
                     authedUserVote={authedUserVotedOptionOne}
+                    onClick={() => this.handleOptionClick("one")}
                 />
                 <Option
                     optionText={question.optionTwo.text}
                     votesOption={votesOptionTwo}
                     votesAll={votesOptionOne+votesOptionTwo}
                     authedUserVote={authedUserVotedOptionTwo}
+                    onClick={() => this.handleOptionClick("two")}
                 />
             </div>
         )
