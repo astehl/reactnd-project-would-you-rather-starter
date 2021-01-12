@@ -1,8 +1,8 @@
 # Tasklist
 
-## [o] Load initial data
+## [DONE] Load initial data
 
-## [] comp OptionView
+## [o] comp OptionView
 
 ## [] comp OptionEdit
 
