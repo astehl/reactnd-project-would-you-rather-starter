@@ -7,7 +7,7 @@ import {setAuthedUser} from "./authedUser";
 export function handleInitialData() {
     return (dispatch) => {
         dispatch(showLoading());
-        dispatch(setAuthedUser('sarahedo'))
+        // dispatch(setAuthedUser('sarahedo'))
         loadInitialData()
             .then(({users, questions}) => {
                 dispatch(loadUsers(users));
