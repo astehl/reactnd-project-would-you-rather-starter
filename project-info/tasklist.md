@@ -2,8 +2,12 @@
 
 ## [DONE] Load initial data
 
-## [o] comp OptionView
+## [DONE] comp OptionView - functional 
 
-## [] comp OptionEdit
+## [] comp OptionEdit - functional
 
 ## [] comp Question
+
+# TODOs
+
+## allow changing answer
