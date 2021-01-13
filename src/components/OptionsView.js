@@ -49,8 +49,8 @@ class OptionsView extends Component {
 }
 
 function mapStateToProps({questions, authedUser}, props) {
-    const {question_Id} = props.match.params
-    const question = questions[question_Id];
+    const {question_id} = props.match.params
+    const question = questions[question_id];
     return ({
         question,
         authedUser
