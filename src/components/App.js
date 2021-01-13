@@ -3,6 +3,7 @@ import {handleInitialData} from "../actions/shared";
 import {connect} from "react-redux";
 import OptionsView from "./OptionsView";
 import NewQuestion from "./NewQuestion";
+import UserList from "./UserList";
 
 class App extends Component {
 
@@ -20,7 +21,8 @@ class App extends Component {
                     <div>
                         <h3>App</h3>
                         {/*<OptionsView questionId='vthrdm985a262al8qx3do'/>*/}
-                        <NewQuestion/>
+                        {/*<NewQuestion/>*/}
+                        <UserList/>
                     </div>
                 }
             </Fragment>
