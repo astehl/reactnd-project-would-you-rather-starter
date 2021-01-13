@@ -5,22 +5,26 @@ import PropTypes from "prop-types";
 class User extends Component {
     static propTypes = {
         id: PropTypes.string.isRequired,
-        onUserClicked: PropTypes.func
+        selected: PropTypes.bool,
+        onSelect: PropTypes.func
     }
 
     onClick(evt, uid) {
         evt.preventDefault();
-        const handler = this.props.onUserClicked;
+        if (this.props.selected) {
+            return;
+        }
+        const handler = this.props.onSelect;
         if (handler) {
             handler(uid);
         }
     }
 
     render() {
-        const {user} = this.props;
+        const {user, selected} = this.props;
         return (
             <li
-                className='option'
+                className={!selected ? 'option' : 'option option-selected'}
                 onClick={(evt) => this.onClick(evt, user.id)}
             >{user.name}</li>
         )
