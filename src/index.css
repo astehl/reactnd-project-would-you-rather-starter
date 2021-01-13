@@ -22,3 +22,22 @@ code {
   border-radius: 3px;
   cursor: pointer;
 }
+
+.option-selected {
+  background-color: lightcoral;
+}
+
+.active {
+  font-weight: bold;
+}
+
+.nav ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  text-decoration: none;
+}
+
+.nav li:first-child {
+  padding-left: 0;
+}

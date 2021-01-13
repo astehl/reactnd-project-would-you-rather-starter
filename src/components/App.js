@@ -3,7 +3,11 @@ import {handleInitialData} from "../actions/shared";
 import {connect} from "react-redux";
 import OptionsView from "./OptionsView";
 import NewQuestion from "./NewQuestion";
-import UserList from "./UserList";
+import Login from "./Login";
+import NavBar from "./NavBar";
+import {BrowserRouter, Route} from "react-router-dom";
+import Home from "./Home";
+import LeaderBoard from "./LeaderBoard";
 
 class App extends Component {
 
@@ -12,27 +16,42 @@ class App extends Component {
     }
 
     render() {
-        const {loadingReady} = this.props;
+        const {loadingReady, authedUser} = this.props;
+        const loggedIn = authedUser !== null;
+        let content = '';
+        console.log(`app render. loadingReady=${loadingReady} loggedIn=${loggedIn}`);
+        if (!loadingReady) {
+            content = <h3>Loading...</h3>;
+        } else {
+            if (!loggedIn) {
+                content = <Login/>;
+            } else {
+                content = (
+                    <Fragment>
+                        <Route path='/' exact component={Home}/>
+                        <Route path='/add' component={NewQuestion}/>
+                        <Route path='/leaderBoard' component={LeaderBoard}/>
+                        <Route path='/questions/:question_id' component={OptionsView}/>
+                    </Fragment>
+                )
+            }
+        }
         return (
-            <Fragment>
-                {loadingReady === false
-                    ? <h3>Loading...</h3>
-                    :
-                    <div>
-                        <h3>App</h3>
-                        {/*<OptionsView questionId='vthrdm985a262al8qx3do'/>*/}
-                        {/*<NewQuestion/>*/}
-                        <UserList/>
-                    </div>
-                }
-            </Fragment>
+            <BrowserRouter>
+                <Fragment>
+                    <h3>Would you rather App ...</h3>
+                    <NavBar/>
+                    {content}
+                </Fragment>
+            </BrowserRouter>
         );
     }
 }
 
-function mapStateToProps({ loadingBar }) {
+function mapStateToProps({loadingBar, authedUser}) {
     return {
-        loadingReady: loadingBar && loadingBar.default === 0
+        loadingReady: loadingBar && loadingBar.default === 0,
+        authedUser
     }
 }
 
