@@ -23,7 +23,7 @@ class NewQuestion extends Component {
         })
     }
 
-    submit(event) {
+    submit = (event) => {
         event.preventDefault();
         this.props.dispatch(handleNewQuestion(this.state.optionOne, this.state.optionTwo));
         this.doInit();
@@ -33,29 +33,26 @@ class NewQuestion extends Component {
         const {optionOne, optionTwo} = this.state;
         return (
             <div>
-                <h3>New Question</h3>
-                <div className='option'>
-                    <div>Would you rather ...</div>
-                    <input
+                <h3>Create new Question</h3>
+                <h4>Would you rather ...</h4>
+                <form onSubmit={this.submit}>
+                    <input className='option'
                         type='text'
                         onChange={(evt) => this.onTextChange(evt, this.options.ONE)}
                         value={optionOne}
                     />
-                </div>
-                <div>or</div>
-                <div className='option'>
-                    <div>Would you rather ...</div>
-                    <input
+                    <div>or</div>
+                    <input className='option'
                         type='text'
                         onChange={(evt) => this.onTextChange(evt, this.options.TWO)}
                         value={optionTwo}
                     />
-                </div>
-                <button
-                    type='submit'
-                    onClick={(evnt) => this.submit(evnt)}
-                    disabled={!this.bothOptionsSet()}
-                >Submit</button>
+                    <button
+                        type='submit'
+                        disabled={!this.bothOptionsSet()}>
+                        Submit
+                    </button>
+                </form>
             </div>
         )
     }
