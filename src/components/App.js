@@ -5,7 +5,7 @@ import OptionsView from "./OptionsView";
 import NewQuestion from "./NewQuestion";
 import Login from "./Login";
 import NavBar from "./NavBar";
-import {BrowserRouter, Route} from "react-router-dom";
+import {BrowserRouter as Router, Route} from "react-router-dom";
 import Home from "./Home";
 import LeaderBoard from "./LeaderBoard";
 
@@ -18,8 +18,8 @@ class App extends Component {
     render() {
         const {loadingReady, authedUser} = this.props;
         const loggedIn = authedUser !== null;
-        let content = '';
         console.log(`app render. loadingReady=${loadingReady} loggedIn=${loggedIn}`);
+        let content = '';
         if (!loadingReady) {
             content = <h3>Loading...</h3>;
         } else {
@@ -37,13 +37,14 @@ class App extends Component {
             }
         }
         return (
-            <BrowserRouter>
+            <Router>
                 <Fragment>
-                    <h3>Would you rather App ...</h3>
-                    <NavBar/>
-                    {content}
+                    <div className='container'>
+                        <NavBar/>
+                        {content}
+                    </div>
                 </Fragment>
-            </BrowserRouter>
+            </Router>
         );
     }
 }
