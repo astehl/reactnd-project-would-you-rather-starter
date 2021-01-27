@@ -1,12 +1,58 @@
 import {connect} from "react-redux";
 import {Component} from "react";
+import Poll from "./Poll";
 
 class Home extends Component {
+
+    state = {
+        showAnswered: false
+    }
+
+    onSwitchQuestionFilter = (e, shouldShowAnswered) => {
+        e.preventDefault();
+        if (shouldShowAnswered !== this.state.showAnswered) {
+            this.setState(() => ({
+                showAnswered: shouldShowAnswered
+            }));
+        }
+    }
+
+    filterAnswerToggle = (question, authedUser) => {
+        const hasVoted = question.optionOne.votes.includes(authedUser) || question.optionTwo.votes.includes(authedUser);
+        return this.state.showAnswered && hasVoted;
+    }
+
     render() {
+        const {questions, user} = this.props;
+        const userAnswers = Object.keys(user.answers);
+        const pollIds = Object.values(questions)
+            .filter((question) => this.state.showAnswered ? userAnswers.includes(question.id) : !userAnswers.includes(question.id))
+            .sort((a, b) => a.timestamp - b.timestamp)
+            .map((question) => question.id);
+        const toggle = this.state.showAnswered;
         return (
-            <div>Home</div>
+            <div>
+                <div className='center'>
+                    <button className={'btn' + (!toggle ? ' selected' : '')} onClick={(e) => this.onSwitchQuestionFilter(e, false)}>Unanswered Questions</button>
+                    <button className={'btn' + (toggle ? ' selected' : '')} onClick={(e) => this.onSwitchQuestionFilter(e, true)}>Answered Questions</button>
+                </div>
+                <ul className='dashboard-list'>
+                    {pollIds.map((id) => (
+                        <li key={id}>
+                            <Poll id={id}/>
+                        </li>
+                    ))}
+                </ul>
+            </div>
         )
     }
 }
 
-export default connect()(Home)
+function mapStateToProps({questions, authedUser, users}) {
+    return {
+        questions,
+        user: users[authedUser]
+    }
+}
+
+export default connect(mapStateToProps)(Home)
