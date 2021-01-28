@@ -8,6 +8,7 @@ import NavBar from "./NavBar";
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import Home from "./Home";
 import LeaderBoard from "./LeaderBoard";
+import Poll from "./Poll";
 
 class App extends Component {
 
@@ -31,7 +32,7 @@ class App extends Component {
                         <Route path='/' exact component={Home}/>
                         <Route path='/add' component={NewQuestion}/>
                         <Route path='/leaderBoard' component={LeaderBoard}/>
-                        <Route path='/questions/:question_id' component={OptionsView}/>
+                        <Route path='/questions/:question_id' render={() => (<Poll mode='voteOrDetail'/>)}/>
                     </Fragment>
                 )
             }

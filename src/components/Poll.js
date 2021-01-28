@@ -1,39 +1,93 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {Link, withRouter} from "react-router-dom";
+import {Link, Redirect, withRouter} from "react-router-dom";
 
 class Poll extends Component {
 
+    state = {
+        toViewPoll: false
+    }
+
+    handleViewPoll = (evt) => {
+        evt.preventDefault();
+        this.setState({
+            toViewPoll: true
+        })
+    }
+
     render() {
-        const {question, author} = this.props;
+        const {question, author, mode, user} = this.props;
         const {id, optionOne, optionsTwo} = question;
-        const optionTeaser = optionOne.text.length > 20 ? optionOne.text.slice(0, 17) + '...' : optionOne.text;
+        if (this.state.toViewPoll) {
+            return <Redirect to={`/questions/${id}`}/>
+        }
+        let content = '';
+        let viewMode = mode;
+        if (mode === 'voteOrDetail') {
+            viewMode = Object.keys(user.answers).includes(question.id) ? 'detail' : 'vote';
+        }
+        switch (viewMode) {
+            case 'detail':
+                content = (
+                    <div>voteOrDetail</div>
+                )
+                break;
+            case 'vote':
+                content = (
+                    <form onSubmit={this.onSubmit}>
+                        <div>
+                            <input type="radio" id='opt1' name="option" value="opt1" onChange={this.onOptionChange}/>
+                            <label htmlFor='opt1'>{question.optionOne.text}</label>
+                        </div>
+                        <div>
+                            <input type="radio" id='opt2' name="option" value="opt2" onChange={this.onOptionChange}/>
+                            <label htmlFor='opt1'>{question.optionTwo.text}</label>
+                        </div>
+                        <button
+                            className='btn'
+                            type='submit'>
+                            Submit
+                        </button>
+                    </form>
+                )
+                break;
+            default:
+                const optionTeaser = optionOne.text.length > 40 ? optionOne.text.slice(0, 37) + '...' : optionOne.text;
+                content = (
+                    <div>
+                        <p>{optionTeaser}</p>
+                        <button className='btn' onClick={this.handleViewPoll}>View Poll</button>
+                    </div>
+                );
+        }
         return (
-            <Link to={`/questions/${id}`} className='poll'>
+            <div className='poll'>
                 <img
                     src={process.env.PUBLIC_URL + '/logo192.png'}
                     alt={`Avatar of ${author.name}`}
                     className='avatar'
                 />
                 <div className='poll-info'>
-                    <div>
-                        <span>{author.name} asks</span>
-                        <div>Would you rather ...</div>
-                        <p>{optionTeaser}</p>
-                    </div>
+                    <span>{author.name} asks</span>
+                    <h3>Would you rather ...</h3>
+                    {content}
                 </div>
-            </Link>
+            </div>
         )
     }
 }
 
-function mapStateToProps({questions, authedUser, users}, {id}) {
-    const question = questions[id];
+function mapStateToProps({questions, authedUser, users}, props) {
+    const {question_id} = props.match.params
+    const theId = props.id ||question_id;
+    const question = questions[theId];
     const author = users[question.author];
+    const user = users[authedUser];
     return ({
         question,
-        authedUser,
-        author
+        user,
+        author,
+        mode: props.mode
     })
 }
 

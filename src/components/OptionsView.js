@@ -1,10 +1,13 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import Option from "./Option";
 import {handleAnswerQuestion} from "../actions/questions";
 import {alreadyAnswered} from "../utils/utils";
 
 class OptionsView extends Component {
+
+    state = {
+        option: 1
+    }
 
     handleOptionClick = (opt) => {
         const {question, authedUser} = this.props;
@@ -20,40 +23,58 @@ class OptionsView extends Component {
         }));
     }
 
+    onSubmit = (evt) => {
+        evt.preventDefault();
+        console.log('you chose ' + this.state.option);
+    }
+
+    onOptionChange = (evt) => {
+        const newOption = evt.target.value === 'opt1' ? 1 : 2;
+        this.setState(() => {
+            return {
+                option: newOption
+            }
+        });
+    }
+
     render() {
-        const {question, authedUser} = this.props;
+        const {question, user} = this.props;
         const votesOptionOne = question.optionOne.votes.length;
-        const authedUserVotedOptionOne = question.optionOne.votes.includes(authedUser);
+        const authedUserVotedOptionOne = question.optionOne.votes.includes(user.id);
         const votesOptionTwo = question.optionTwo.votes.length;
-        const authedUserVotedOptionTwo = question.optionTwo.votes.includes(authedUser);
+        const authedUserVotedOptionTwo = question.optionTwo.votes.includes(user.id);
         return (
             <div>
-                <h3>OptionView</h3>
-                <Option
-                    optionText={question.optionOne.text}
-                    votesOption={votesOptionOne}
-                    votesAll={votesOptionOne+votesOptionTwo}
-                    authedUserVote={authedUserVotedOptionOne}
-                    onClick={() => this.handleOptionClick("one")}
-                />
-                <Option
-                    optionText={question.optionTwo.text}
-                    votesOption={votesOptionTwo}
-                    votesAll={votesOptionOne+votesOptionTwo}
-                    authedUserVote={authedUserVotedOptionTwo}
-                    onClick={() => this.handleOptionClick("two")}
-                />
+                <form onSubmit={this.onSubmit}>
+                    <h3>Would you rather ...</h3>
+                        <div>
+                            <input type="radio" id='opt1' name="option" value="opt1" onChange={this.onOptionChange}/>
+                            <label htmlFor='opt1'>{question.optionOne.text}</label>
+                        </div>
+                        <div>
+                            <input type="radio" id='opt2' name="option" value="opt2" onChange={this.onOptionChange}/>
+                            <label htmlFor='opt1'>{question.optionTwo.text}</label>
+                        </div>
+                        <button
+                            className='btn'
+                            type='submit'>
+                            Submit
+                        </button>
+                </form>
+
             </div>
+
         )
     }
 }
 
-function mapStateToProps({questions, authedUser}, props) {
+function mapStateToProps({questions, authedUser, users}, props) {
     const {question_id} = props.match.params
     const question = questions[question_id];
+    const user = users[authedUser];
     return ({
         question,
-        authedUser
+        user
     })
 }
 
