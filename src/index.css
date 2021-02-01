@@ -95,6 +95,26 @@ li {
   flex-direction: column;
 }
 
+.poll-option {
+  margin: 10px;
+  display: flex;
+  border: 1px solid #dad7d7;
+  border-radius: 3px;
+}
+
+.option-voted {
+  height: 50px;
+  width: 50px;
+  border-radius: 25px;
+  margin: 10px;
+}
+
+.option-details {
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
 /* Hacky but less typing in the video */
 .poll-info > div > span:first-child {
   font-weight: bold;
@@ -127,6 +147,34 @@ li {
   padding: 10px;
   font-size: 15px;
   height: 100px;
+}
+
+.user {
+  width: 100%;
+  max-width: 590px;
+  padding: 10px;
+  display: flex;
+  margin: 0 auto;
+  border: 1px solid #dad7d7;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.user-info {
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.user-info > div {
+  color: #969696;
+  font-size: 16px;
+}
+
+.user-score {
+  font-size: 18px;
+  margin: 10px 0;
+  color: #000000;
 }
 
 .book-shelf-changer {
