@@ -36,7 +36,7 @@ class Login extends Component {
                     )}
                 </ul>
                 <button
-                    type='submit'
+                    className='btn'
                     onClick={() => this.doLogin()}
                     disabled={selectedUid === ''}
                 >Login</button>

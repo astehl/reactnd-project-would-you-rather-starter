@@ -1,6 +1,7 @@
 import {Component} from "react";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
+import Avatar from "./Avatar";
 
 class User extends Component {
     static propTypes = {
@@ -9,7 +10,7 @@ class User extends Component {
         onSelect: PropTypes.func
     }
 
-    onClick(evt, uid) {
+    onClick = (evt, uid) => {
         evt.preventDefault();
         if (this.props.selected) {
             return;
@@ -22,11 +23,15 @@ class User extends Component {
 
     render() {
         const {user, selected} = this.props;
+
         return (
-            <li
-                className={!selected ? 'option' : 'option option-selected'}
-                onClick={(evt) => this.onClick(evt, user.id)}
-            >{user.name}</li>
+            <div className={'user' + (selected ? ' selected' : '')}
+                 onClick={(evt) => this.onClick(evt, user.id)}>
+                <Avatar user={user}/>
+                <div className='user-info'>
+                    <h4>{user.name}</h4>
+                </div>
+            </div>
         )
     }
 }
