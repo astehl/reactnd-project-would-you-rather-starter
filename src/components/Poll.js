@@ -2,6 +2,7 @@ import React, {Component, Fragment} from "react";
 import {connect} from "react-redux";
 import {Redirect, withRouter} from "react-router-dom";
 import {handleAnswerQuestion} from "../actions/questions";
+import Option from "./Option";
 
 class Poll extends Component {
 
@@ -32,34 +33,33 @@ class Poll extends Component {
             option: this.state.option,
             authedUser: user.id
         }
-        console.log('submitting vote', info);
         dispatch(handleAnswerQuestion(info));
+    }
+
+    authorIsCurrentUser = () => {
+        const {question, user} = this.props;
+        return question.author === user.id;
     }
 
     render() {
         const {question, author, mode, user} = this.props;
-        console.log('render', question, mode);
-        const {id, optionOne, optionsTwo} = question;
+        const qid = question.id;
         if (this.state.toViewPoll) {
-            return <Redirect to={`/questions/${id}`}/>
+            return <Redirect to={`/questions/${qid}`}/>
         }
         let content;
+        let ask;
         let viewMode = mode;
         if (mode === 'voteOrDetail') {
-            viewMode = Object.keys(user.answers).includes(question.id) ? 'detail' : 'vote';
+            viewMode = Object.keys(user.answers).includes(qid) ? 'detail' : 'vote';
         }
         switch (viewMode) {
             case 'detail':
+                ask = 'asked by ' + (this.authorIsCurrentUser() ?  "you" : author.name);
                 content = (
                     <Fragment>
-                        <div className='poll-option'>
-                            <div>Vote Option1</div>
-                            <div>Details Option1</div>
-                        </div>
-                        <div className='poll-option'>
-                            <div>Vote Option2</div>
-                            <div>Details Option2</div>
-                        </div>
+                        <Option question={question} option='optionOne' authedUser={user.id}/>
+                        <Option question={question} option='optionTwo' authedUser={user.id}/>
                     </Fragment>
                 )
                 break;
@@ -83,7 +83,9 @@ class Poll extends Component {
                 )
                 break;
             default:
-                const optionTeaser = optionOne.text.length > 40 ? optionOne.text.slice(0, 37) + '...' : optionOne.text;
+                const optionOneText = question['optionOne'].text;
+                const optionTeaser = optionOneText.length > 40 ? optionOneText.slice(0, 37) + '...' : optionOneText;
+                ask = this.authorIsCurrentUser() ?  "You ask" : author.name + ' asks';
                 content = (
                     <div>
                         <p>{optionTeaser}</p>
@@ -99,7 +101,7 @@ class Poll extends Component {
                     className='avatar'
                 />
                 <div className='poll-info'>
-                    <span>{author.name} asks</span>
+                    <span>{ask}</span>
                     <h3>Would you rather ...</h3>
                     {content}
                 </div>
