@@ -10,7 +10,13 @@ export default function Option(props) {
     return (
         <div className='poll-option'>
             <div className='option-voted'>
-                <div>{isAuthedUserVote && 'Your VOTE!'}</div>
+                {isAuthedUserVote && <img
+                        src={process.env.PUBLIC_URL + '/icons/icons8-vote-64.png'}
+                        alt='YOUR VOTE!'
+                        className='voted'
+                        title='YOUR VOTE!'
+                    />
+                }
             </div>
             <div className='option-details'>
                 <div>{optionText}</div>

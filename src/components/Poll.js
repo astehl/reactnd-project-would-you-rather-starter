@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import {Redirect, withRouter} from "react-router-dom";
 import {handleAnswerQuestion} from "../actions/questions";
 import Option from "./Option";
+import Avatar from "./Avatar";
 
 class Poll extends Component {
 
@@ -95,11 +96,7 @@ class Poll extends Component {
         }
         return (
             <div className='poll'>
-                <img
-                    src={process.env.PUBLIC_URL + '/logo192.png'}
-                    alt={`Avatar of ${author.name}`}
-                    className='avatar'
-                />
+                <Avatar user={author}/>
                 <div className='poll-info'>
                     <span>{ask}</span>
                     <h3>Would you rather ...</h3>

@@ -1,3 +1,5 @@
+import Avatar from "./Avatar";
+
 export default function UserScore(props) {
 
     const {user} = props;
@@ -7,11 +9,7 @@ export default function UserScore(props) {
 
     return (
         <div className='user'>
-            <img
-                src={process.env.PUBLIC_URL + '/logo192.png'}
-                alt={`Avatar of ${user.name}`}
-                className='avatar'
-            />
+            <Avatar user={user}/>
             <div className='user-info'>
                 <h4>{user.name}</h4>
                 <div>Questions asked: {countQuestions}</div>
