@@ -1,27 +1,49 @@
-import React, {Component} from "react";
+import React, {Component, Fragment} from "react";
 import {connect} from "react-redux";
-import {Link, Redirect, withRouter} from "react-router-dom";
+import {Redirect, withRouter} from "react-router-dom";
+import {handleAnswerQuestion} from "../actions/questions";
 
 class Poll extends Component {
 
     state = {
-        toViewPoll: false
+        toViewPoll: false,
+        option: ''
     }
 
     handleViewPoll = (evt) => {
         evt.preventDefault();
         this.setState({
             toViewPoll: true
-        })
+        });
+    }
+
+    onVoteOptionChange = (evt) => {
+        const newOption = evt.target.value === 'opt1' ? 'optionOne' : 'optionTwo';
+        this.setState(() => ({
+            option: newOption
+        }));
+    }
+
+    onSubmitVote = (evt) => {
+        evt.preventDefault();
+        const {question, user, dispatch} = this.props;
+        const info = {
+            id: question.id,
+            option: this.state.option,
+            authedUser: user.id
+        }
+        console.log('submitting vote', info);
+        dispatch(handleAnswerQuestion(info));
     }
 
     render() {
         const {question, author, mode, user} = this.props;
+        console.log('render', question, mode);
         const {id, optionOne, optionsTwo} = question;
         if (this.state.toViewPoll) {
             return <Redirect to={`/questions/${id}`}/>
         }
-        let content = '';
+        let content;
         let viewMode = mode;
         if (mode === 'voteOrDetail') {
             viewMode = Object.keys(user.answers).includes(question.id) ? 'detail' : 'vote';
@@ -29,18 +51,27 @@ class Poll extends Component {
         switch (viewMode) {
             case 'detail':
                 content = (
-                    <div>voteOrDetail</div>
+                    <Fragment>
+                        <div className='poll-option'>
+                            <div>Vote Option1</div>
+                            <div>Details Option1</div>
+                        </div>
+                        <div className='poll-option'>
+                            <div>Vote Option2</div>
+                            <div>Details Option2</div>
+                        </div>
+                    </Fragment>
                 )
                 break;
             case 'vote':
                 content = (
-                    <form onSubmit={this.onSubmit}>
+                    <form onSubmit={this.onSubmitVote}>
                         <div>
-                            <input type="radio" id='opt1' name="option" value="opt1" onChange={this.onOptionChange}/>
+                            <input type="radio" id='opt1' name="option" value="opt1" onChange={this.onVoteOptionChange}/>
                             <label htmlFor='opt1'>{question.optionOne.text}</label>
                         </div>
                         <div>
-                            <input type="radio" id='opt2' name="option" value="opt2" onChange={this.onOptionChange}/>
+                            <input type="radio" id='opt2' name="option" value="opt2" onChange={this.onVoteOptionChange}/>
                             <label htmlFor='opt1'>{question.optionTwo.text}</label>
                         </div>
                         <button
@@ -79,7 +110,7 @@ class Poll extends Component {
 
 function mapStateToProps({questions, authedUser, users}, props) {
     const {question_id} = props.match.params
-    const theId = props.id ||question_id;
+    const theId = props.id || question_id;
     const question = questions[theId];
     const author = users[question.author];
     const user = users[authedUser];

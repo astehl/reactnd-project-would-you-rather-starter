@@ -27,8 +27,7 @@ export function handleAnswerQuestion(info) {
         return saveQuestionAnswer({
             qid: id,
             answer: option,
-            authedUser
-        })
+            authedUser})
             .catch((e) => {
                 console.warn('error while calling saveQuestionAnswer', e);
                 // TODO: dispatch redo action
