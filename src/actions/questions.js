@@ -1,4 +1,5 @@
 import {saveQuestion, saveQuestionAnswer} from "../utils/api";
+import {hideLoading, showLoading} from "react-redux-loading";
 
 export const LOAD_QUESTIONS = 'LOAD_QUESTIONS';
 export const ANSWER_QUESTION = 'ANSWER_QUESTION';
@@ -46,6 +47,8 @@ function newQuestion(question) {
 export function handleNewQuestion(optionOneText, optionTwoText) {
     return (dispatch, getState) => {
         const {authedUser} = getState();
+
+        dispatch(showLoading())
         return saveQuestion({
             optionOneText,
             optionTwoText,
@@ -57,5 +60,6 @@ export function handleNewQuestion(optionOneText, optionTwoText) {
                 console.warn('error while calling saveNeQuestion', e);
                 alert('Something went wrong. Please try again');
             })
+            .then(() => dispatch(hideLoading()))
     }
 }

@@ -1,7 +1,6 @@
 import {Component} from "react";
 import {connect} from "react-redux";
 import {handleNewQuestion} from "../actions/questions";
-import {Redirect} from "react-router-dom";
 
 /**
  * @description NewQuestion component
@@ -13,8 +12,7 @@ class NewQuestion extends Component {
 
     state = {
         optionOne: '',
-        optionTwo: '',
-        goHome: false
+        optionTwo: ''
     }
 
     options = {
@@ -33,15 +31,12 @@ class NewQuestion extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        this.props.dispatch(handleNewQuestion(this.state.optionOne, this.state.optionTwo));
-        this.prepGoHome();
+        this.props.dispatch(handleNewQuestion(this.state.optionOne, this.state.optionTwo))
+            .then(() => this.goHome());
     }
 
     render() {
-        const {optionOne, optionTwo, goHome} = this.state;
-        if (goHome) {
-            return <Redirect to='/'/>
-        }
+        const {optionOne, optionTwo} = this.state;
         return (
             <div>
                 <h3 className='center'>Create new Question</h3>
@@ -73,10 +68,8 @@ class NewQuestion extends Component {
         )
     }
 
-    prepGoHome() {
-        this.setState({
-            goHome: true
-        })
+    goHome = () => {
+        this.props.history.push('/');
     }
 
     bothOptionsSet() {
