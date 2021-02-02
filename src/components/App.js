@@ -10,6 +10,7 @@ import LeaderBoard from "./LeaderBoard";
 import Poll from "./Poll";
 import Logout from "./Logout";
 import NotFound from "./NotFound";
+import LoadingBar from "react-redux-loading";
 
 class App extends Component {
 
@@ -22,7 +23,7 @@ class App extends Component {
         const loggedIn = authedUser !== null;
         let content;
         if (!loadingReady) {
-            content = <h3>Loading...</h3>;
+            content = '';
         } else {
             if (!loggedIn) {
                 content = <Login/>;
@@ -42,6 +43,7 @@ class App extends Component {
         return (
             <Router>
                 <Fragment>
+                    <LoadingBar />
                     <div className='center container bg-green'>
                         <h3>'Would You Rather' App</h3>
                     </div>
