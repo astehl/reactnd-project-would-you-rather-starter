@@ -49,11 +49,11 @@ class Poll extends Component {
             return <Redirect to={`/questions/${qid}`}/>
         }
         let content;
-        let ask;
         let viewMode = mode;
         if (mode === 'voteOrDetail') {
             viewMode = Object.keys(user.answers).includes(qid) ? 'detail' : 'vote';
         }
+        let ask = this.authorIsCurrentUser() ?  "You ask" : author.name + ' asks';
         switch (viewMode) {
             case 'detail':
                 ask = 'asked by ' + (this.authorIsCurrentUser() ?  "you" : author.name);
@@ -86,7 +86,6 @@ class Poll extends Component {
             default:
                 const optionOneText = question['optionOne'].text;
                 const optionTeaser = optionOneText.length > 40 ? optionOneText.slice(0, 37) + '...' : optionOneText;
-                ask = this.authorIsCurrentUser() ?  "You ask" : author.name + ' asks';
                 content = (
                     <div>
                         <p>{optionTeaser}</p>

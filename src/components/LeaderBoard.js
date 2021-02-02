@@ -16,7 +16,7 @@ class LeaderBoard extends Component {
             .sort((a, b) => this.computeScore(b) - this.computeScore(a));
         return (
             <div>
-                <h3>Leader Board</h3>
+                <h3 className='center'>Leader Board</h3>
                 <ul className='dashboard-list'>
                     {orderedUsers.map((user) => (
                         <li key={user.id}>
