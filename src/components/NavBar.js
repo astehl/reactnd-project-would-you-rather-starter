@@ -5,7 +5,6 @@ import {connect} from "react-redux";
 
 function NavBar(props) {
     const loggedIn = props.user !== null;
-    console.log('nav bar user:', props.user, 'loggedIn', loggedIn);
     return (
         <nav className='nav'>
             <ul>

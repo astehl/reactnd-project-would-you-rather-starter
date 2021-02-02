@@ -52,6 +52,7 @@ class Poll extends Component {
             return <Redirect to={`/questions/${qid}`}/>
         }
         let content;
+        let headerText;
         let viewMode = mode;
         if (mode === 'voteOrDetail') {
             viewMode = Object.keys(user.answers).includes(qid) ? 'detail' : 'vote';
@@ -59,6 +60,7 @@ class Poll extends Component {
         let ask = this.authorIsCurrentUser() ?  "You ask" : author.name + ' asks';
         switch (viewMode) {
             case 'detail':
+                headerText = 'Poll results';
                 ask = 'asked by ' + (this.authorIsCurrentUser() ?  "you" : author.name);
                 content = (
                     <Fragment>
@@ -68,6 +70,7 @@ class Poll extends Component {
                 )
                 break;
             case 'vote':
+                headerText = 'Please vote ...';
                 content = (
                     <form onSubmit={this.onSubmitVote}>
                         <div>
@@ -87,6 +90,7 @@ class Poll extends Component {
                 )
                 break;
             default:
+                headerText = '';
                 const optionOneText = question['optionOne'].text;
                 const optionTeaser = optionOneText.length > 40 ? optionOneText.slice(0, 37) + '...' : optionOneText;
                 content = (
@@ -97,14 +101,17 @@ class Poll extends Component {
                 );
         }
         return (
-            <div className='poll'>
-                <Avatar user={author}/>
-                <div className='poll-info'>
-                    <span>{ask}</span>
-                    <h3>Would you rather ...</h3>
-                    {content}
+            <Fragment>
+                <h3 className='center'>{headerText}</h3>
+                <div className='poll'>
+                    <Avatar user={author}/>
+                    <div className='poll-info'>
+                        <span>{ask}</span>
+                        <h3>Would you rather ...</h3>
+                        {content}
+                    </div>
                 </div>
-            </div>
+            </Fragment>
         )
     }
 }

@@ -42,6 +42,9 @@ class App extends Component {
         return (
             <Router>
                 <Fragment>
+                    <div className='center container bg-green'>
+                        <h3>'Would You Rather' App</h3>
+                    </div>
                     <div className='container'>
                         <NavBar/>
                         {content}

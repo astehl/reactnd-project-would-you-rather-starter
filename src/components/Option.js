@@ -19,7 +19,7 @@ export default function Option(props) {
                 }
             </div>
             <div className='option-details'>
-                <div>{optionText}</div>
+                <h4>{optionText}</h4>
                 <div>{countVotesOption} out of {countVotesAll} votes ({percentVotesOption} %).</div>
             </div>
         </div>

@@ -16,6 +16,10 @@ a {
   padding: 10px;
 }
 
+.bg-green {
+  background-color: lightgreen;
+}
+
 .btn {
   text-transform: uppercase;
   margin: 20px auto 10px;
@@ -29,7 +33,7 @@ a {
 }
 
 .btn.selected {
-  background-color: lightcoral;
+  background-color: #87f080;
 }
 
 .btn:hover {
@@ -56,7 +60,11 @@ a {
   flex-direction: row;
   justify-content: flex-start;
   text-decoration: none;
-  background-color: #efb0b0;
+  /*background-color: #63ee30;*/
+}
+
+.nav > ul > li:hover {
+  background-color: #87f080;
 }
 
 ul {
@@ -129,24 +137,6 @@ li.filler {
   margin: 10px;
   display: flex;
   flex-direction: column;
-}
-
-/* Hacky but less typing in the video */
-.poll-info > div > span:first-child {
-  font-weight: bold;
-  margin-right: 5px;
-}
-.poll-info > div > span:nth-child(2) {
-  color: #969696;
-  font-size: 16px;
-}
-.poll-info > div > div {
-  color: #969696;
-  font-size: 15px;
-}
-.poll-info > div > p {
-  font-size: 18px;
-  margin: 10px 0;
 }
 
 .new-question {
