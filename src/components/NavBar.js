@@ -1,6 +1,7 @@
 import {NavLink} from "react-router-dom";
-import {connect} from "react-redux";
 import {Fragment} from "react";
+import Avatar from "./Avatar";
+import {connect} from "react-redux";
 
 function NavBar(props) {
     const loggedIn = props.user !== null;
@@ -24,16 +25,16 @@ function NavBar(props) {
                     </NavLink>
                 </li>
                 {loggedIn &&
-                    <Fragment>
-                        <li>
-                            Current user: {props.user.name}
-                        </li>
-                        <li>
-                            <NavLink to='/logout' activeClassName='active'>
-                                Logout
-                            </NavLink>
-                        </li>
-                    </Fragment>
+                <Fragment>
+                    <li>
+                        <span>User: {props.user.name}</span><Avatar user={props.user} type='small'/>
+                    </li>
+                    <li>
+                        <NavLink to='/logout' activeClassName='active'>
+                            Logout
+                        </NavLink>
+                    </li>
+                </Fragment>
                 }
             </ul>
         </nav>

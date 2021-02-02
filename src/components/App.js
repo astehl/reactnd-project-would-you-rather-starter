@@ -8,6 +8,7 @@ import {BrowserRouter as Router, Route} from "react-router-dom";
 import Home from "./Home";
 import LeaderBoard from "./LeaderBoard";
 import Poll from "./Poll";
+import Logout from "./Logout";
 
 class App extends Component {
 
@@ -31,6 +32,7 @@ class App extends Component {
                         <Route path='/add' component={NewQuestion}/>
                         <Route path='/leaderBoard' component={LeaderBoard}/>
                         <Route path='/questions/:question_id' render={() => (<Poll mode='voteOrDetail'/>)}/>
+                        <Route path='/logout' component={Logout}/>
                     </Fragment>
                 )
             }

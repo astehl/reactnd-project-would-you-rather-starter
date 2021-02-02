@@ -1,7 +1,7 @@
 import {Component} from "react";
 import {connect} from "react-redux";
 import User from "./User";
-import {setAuthedUser} from "../actions/authedUser";
+import {loginUser} from "../actions/authedUser";
 
 class Login extends Component {
 
@@ -16,7 +16,7 @@ class Login extends Component {
     }
 
     doLogin() {
-        this.props.dispatch(setAuthedUser(this.state.uid));
+        this.props.dispatch(loginUser(this.state.uid));
     }
 
     render() {
