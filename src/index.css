@@ -78,6 +78,11 @@ li {
   margin: 10px;
 }
 
+.avatar-small {
+  height: 20px;
+  border-radius: 10px;
+}
+
 .voted {
   height: 50px;
   border-radius: 5px;
