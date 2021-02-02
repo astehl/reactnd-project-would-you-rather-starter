@@ -1,3 +1,4 @@
+import {connect} from "react-redux";
 import PropTypes from 'prop-types';
 
 /**
@@ -24,11 +25,11 @@ function Option(props) {
         <div className='poll-option'>
             <div className='option-voted'>
                 {isAuthedUserVote && <img
-                    src={process.env.PUBLIC_URL + '/icons/icons8-vote-64.png'}
-                    alt='YOUR VOTE!'
-                    className='voted'
-                    title='YOUR VOTE!'
-                />
+                        src={process.env.PUBLIC_URL + '/icons/icons8-vote-64.png'}
+                        alt='YOUR VOTE!'
+                        className='voted'
+                        title='YOUR VOTE!'
+                    />
                 }
             </div>
             <div className='option-details'>
@@ -45,4 +46,12 @@ Option.propTypes = {
     authedUser: PropTypes.string
 };
 
-export default Option
+function mapStateToProps({authedUser, questions}, {qid, option}) {
+    return {
+        question: questions[qid],
+        authedUser,
+        option
+    }
+}
+
+export default connect(mapStateToProps)(Option)

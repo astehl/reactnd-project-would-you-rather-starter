@@ -32,7 +32,7 @@ class Home extends Component {
         const userAnswers = Object.keys(user.answers);
         const pollIds = Object.values(questions)
             .filter((question) => this.state.showAnswered ? userAnswers.includes(question.id) : !userAnswers.includes(question.id))
-            .sort((a, b) => a.timestamp - b.timestamp)
+            .sort((a, b) => b.timestamp - a.timestamp)
             .map((question) => question.id);
         const toggle = this.state.showAnswered;
         return (

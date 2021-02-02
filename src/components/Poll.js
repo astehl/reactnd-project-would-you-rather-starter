@@ -79,8 +79,8 @@ class Poll extends Component {
                 ask = 'asked by ' + (this.authorIsCurrentUser() ?  "you" : author.name);
                 content = (
                     <Fragment>
-                        <Option question={question} option='optionOne' authedUser={user.id}/>
-                        <Option question={question} option='optionTwo' authedUser={user.id}/>
+                        <Option qid={question.id} option='optionOne'/>
+                        <Option qid={question.id} option='optionTwo'/>
                     </Fragment>
                 )
                 break;
