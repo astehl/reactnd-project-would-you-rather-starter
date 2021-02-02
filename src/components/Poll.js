@@ -115,7 +115,7 @@ function mapStateToProps({questions, authedUser, users}, props) {
     const question = questions[theId];
     const author = question ? users[question.author] : null;
     const user = question ? users[authedUser] : null;
-    const notFound = question ? false : true;
+    const notFound = !question;
     return ({
         question,
         user,
