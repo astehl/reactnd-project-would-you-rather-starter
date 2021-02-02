@@ -4,11 +4,12 @@ import {connect} from "react-redux";
 import NewQuestion from "./NewQuestion";
 import Login from "./Login";
 import NavBar from "./NavBar";
-import {BrowserRouter as Router, Route} from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Home from "./Home";
 import LeaderBoard from "./LeaderBoard";
 import Poll from "./Poll";
 import Logout from "./Logout";
+import NotFound from "./NotFound";
 
 class App extends Component {
 
@@ -27,13 +28,14 @@ class App extends Component {
                 content = <Login/>;
             } else {
                 content = (
-                    <Fragment>
+                    <Switch>
                         <Route path='/' exact component={Home}/>
                         <Route path='/add' component={NewQuestion}/>
                         <Route path='/leaderBoard' component={LeaderBoard}/>
                         <Route path='/questions/:question_id' render={() => (<Poll mode='voteOrDetail'/>)}/>
                         <Route path='/logout' component={Logout}/>
-                    </Fragment>
+                        <Route component={NotFound}/>
+                    </Switch>
                 )
             }
         }

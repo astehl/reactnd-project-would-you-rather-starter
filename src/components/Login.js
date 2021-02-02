@@ -24,7 +24,7 @@ class Login extends Component {
         const selectedUid = this.state.uid;
         return (
             <div className='center'>
-                <h3>Login</h3>
+                <h3>Login as ...</h3>
                 <ul>
                     {userIds.map((uid) =>
                         <User

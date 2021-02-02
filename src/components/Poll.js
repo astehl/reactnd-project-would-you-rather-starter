@@ -43,7 +43,10 @@ class Poll extends Component {
     }
 
     render() {
-        const {question, author, mode, user} = this.props;
+        const {question, author, mode, user, notFound, question_id} = this.props;
+        if (notFound) {
+            return <h3>Sorry, a question with id {question_id} can't be found :-(</h3>
+        }
         const qid = question.id;
         if (this.state.toViewPoll) {
             return <Redirect to={`/questions/${qid}`}/>
@@ -110,13 +113,16 @@ function mapStateToProps({questions, authedUser, users}, props) {
     const {question_id} = props.match.params
     const theId = props.id || question_id;
     const question = questions[theId];
-    const author = users[question.author];
-    const user = users[authedUser];
+    const author = question ? users[question.author] : null;
+    const user = question ? users[authedUser] : null;
+    const notFound = question ? false : true;
     return ({
         question,
         user,
         author,
-        mode: props.mode
+        mode: props.mode,
+        notFound,
+        question_id
     })
 }
 
