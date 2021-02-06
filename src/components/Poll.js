@@ -6,10 +6,20 @@ import Option from "./Option";
 import Avatar from "./Avatar";
 import PropTypes from 'prop-types';
 
+/**
+ * @description Poll component
+ * Renders a poll in different contexts.
+ * Depending on the "mode" property the poll will be rendered as an overview or detailed representation.
+ * Kind of voting form is presented, if details mode selected and the current user didn't already voted this poll.
+ *
+ * @param {sting} id - the question id
+ * @param {sting} mode - if equals to "voteOrDetail", the poll's voting or details represention will be rendered. Otherwise a kind of overview.
+ */
 class Poll extends Component {
 
     static propTypes = {
-        id: PropTypes.string
+        id: PropTypes.string,
+        mode: PropTypes.string
     }
 
     state = {

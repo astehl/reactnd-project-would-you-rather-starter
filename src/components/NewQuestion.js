@@ -3,6 +3,12 @@ import {connect} from "react-redux";
 import {handleNewQuestion} from "../actions/questions";
 import {Redirect} from "react-router-dom";
 
+/**
+ * @description NewQuestion component
+ * Provides form to add a new poll question to the system.
+ * Author is the authed user provided by app store.
+ *
+ */
 class NewQuestion extends Component {
 
     state = {

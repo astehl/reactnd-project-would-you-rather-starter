@@ -1,5 +1,16 @@
 import PropTypes from 'prop-types';
 
+/**
+ * @description Option component
+ * Renders a poll option with all details.
+ * - option text
+ * - how many users voted this option and the percentage of all votes
+ * - info, if authed user voted this option
+ *
+ * @param {object} question - the question contaning the option to render
+ * @param {string} option - key, which option should be rendered. Can be 'optionOne' or 'optionTwo'.
+ * @param {string} authedUser - the authed user's id
+ */
 function Option(props) {
 
     const {question, option, authedUser} = props;

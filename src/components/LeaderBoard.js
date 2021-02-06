@@ -2,6 +2,10 @@ import {connect} from "react-redux";
 import {Component} from "react";
 import UserScore from "./UserScore";
 
+/**
+ * @description LeaderBoard component
+ * renders the Leaderboard
+ */
 class LeaderBoard extends Component {
 
     computeScore = (user) => {

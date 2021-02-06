@@ -2,6 +2,11 @@ import {connect} from "react-redux";
 import {Component} from "react";
 import Poll from "./Poll";
 
+/**
+ * @description Home component
+ * renders the Home screen / Landing page.
+ * Presents all answered and unanswered questions for the currently authed user.
+ */
 class Home extends Component {
 
     state = {

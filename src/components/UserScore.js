@@ -1,6 +1,15 @@
 import Avatar from './Avatar';
 import PropTypes from 'prop-types';
 
+/**
+ * @description Userscore component
+ * Renders the score details of a user. These are
+ * - count of asked questions
+ * - count of voted questions
+ * - the sum of both as the user's score
+ *
+ * @param {object} user - the user object to render the score values for.
+ */
 function UserScore(props) {
 
     const {user} = props;

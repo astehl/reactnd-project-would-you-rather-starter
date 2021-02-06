@@ -3,6 +3,18 @@ import {Fragment} from "react";
 import Avatar from "./Avatar";
 import {connect} from "react-redux";
 
+/**
+ * @description NavBar component
+ * Renders the navigation bar.
+ * Links to
+ * - Home Screen
+ * - Add new question
+ * - Leaderboard
+ * are provided.
+ * if an authed user is present, it's avatar and name and a logout-link are provided additionally.
+ *
+ * @param {object} user - the authed user object
+ */
 function NavBar(props) {
     const loggedIn = props.user !== null;
     return (

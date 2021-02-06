@@ -3,6 +3,11 @@ import {connect} from "react-redux";
 import User from "./User";
 import {loginUser} from "../actions/authedUser";
 
+/**
+ * @description Login component
+ * Renders a list of all users in the system. Each user item can be selected to login.
+ * The so logged-in user will be set as the "authedUser" in app store.
+ */
 class Login extends Component {
 
     state = {

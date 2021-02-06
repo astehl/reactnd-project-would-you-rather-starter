@@ -3,6 +3,14 @@ import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import Avatar from "./Avatar";
 
+/**
+ * @description User component
+ * Renders a User representation.
+ *
+ * @param {string} id - the user's id
+ * @param {boolean} selected - selected flag
+ * @param {function} onSelect - event handler function. Called when a new user selection happened.
+ */
 class User extends Component {
 
     static propTypes = {
