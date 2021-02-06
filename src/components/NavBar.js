@@ -29,7 +29,7 @@ function NavBar(props) {
                         <li>
                             <span>Welcome, {props.user.name}</span>
                         </li>
-                        <li class='no-pad-left'><Avatar user={props.user} type='small'/></li>
+                        <li className='no-pad-left'><Avatar user={props.user} type='small'/></li>
                         <li>
                             <NavLink to='/logout' activeClassName='active'>
                                 Logout
