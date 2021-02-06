@@ -4,8 +4,13 @@ import {Redirect, withRouter} from "react-router-dom";
 import {handleAnswerQuestion} from "../actions/questions";
 import Option from "./Option";
 import Avatar from "./Avatar";
+import PropTypes from 'prop-types';
 
 class Poll extends Component {
+
+    static propTypes = {
+        id: PropTypes.string
+    }
 
     state = {
         toViewPoll: false,

@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import Avatar from "./Avatar";
 
 class User extends Component {
+
     static propTypes = {
         id: PropTypes.string.isRequired,
         selected: PropTypes.bool,

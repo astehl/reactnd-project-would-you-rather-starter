@@ -1,6 +1,7 @@
-import Avatar from "./Avatar";
+import Avatar from './Avatar';
+import PropTypes from 'prop-types';
 
-export default function UserScore(props) {
+function UserScore(props) {
 
     const {user} = props;
     const countQuestions = user.questions.length;
@@ -19,3 +20,9 @@ export default function UserScore(props) {
         </div>
     )
 }
+
+UserScore.propType = {
+    user: PropTypes.object.isRequired,
+}
+
+export default UserScore

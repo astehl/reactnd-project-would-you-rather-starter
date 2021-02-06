@@ -1,4 +1,6 @@
-export default function Avatar(props) {
+import PropTypes from 'prop-types';
+
+function Avatar(props) {
 
     const {user, type} = props;
 
@@ -11,3 +13,10 @@ export default function Avatar(props) {
         />
     )
 }
+
+Avatar.propTypes = {
+    user: PropTypes.object.isRequired,
+    type: PropTypes.string
+};
+
+export default Avatar

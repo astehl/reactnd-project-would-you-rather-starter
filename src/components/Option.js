@@ -1,4 +1,6 @@
-export default function Option(props) {
+import PropTypes from 'prop-types';
+
+function Option(props) {
 
     const {question, option, authedUser} = props;
     const optionText = question[option].text;
@@ -11,11 +13,11 @@ export default function Option(props) {
         <div className='poll-option'>
             <div className='option-voted'>
                 {isAuthedUserVote && <img
-                        src={process.env.PUBLIC_URL + '/icons/icons8-vote-64.png'}
-                        alt='YOUR VOTE!'
-                        className='voted'
-                        title='YOUR VOTE!'
-                    />
+                    src={process.env.PUBLIC_URL + '/icons/icons8-vote-64.png'}
+                    alt='YOUR VOTE!'
+                    className='voted'
+                    title='YOUR VOTE!'
+                />
                 }
             </div>
             <div className='option-details'>
@@ -25,3 +27,11 @@ export default function Option(props) {
         </div>
     )
 }
+
+Option.propTypes = {
+    question: PropTypes.object.isRequired,
+    option: PropTypes.string.isRequired,
+    authedUser: PropTypes.string
+};
+
+export default Option
